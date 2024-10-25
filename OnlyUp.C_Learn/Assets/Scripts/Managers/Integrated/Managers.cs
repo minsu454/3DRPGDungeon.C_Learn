@@ -6,12 +6,17 @@ public sealed class Managers : MonoBehaviour
 
     #region No MonoBehaviour
     public static ResourcesManager Resource { get { return instance.resourcesManager; } }
+    public static SceneManagerEx Scene { get { return instance.sceneManagerEx; } }
+
 
     private ResourcesManager resourcesManager = new ResourcesManager();
+    private SceneManagerEx sceneManagerEx = new SceneManagerEx();
     #endregion
 
     #region MonoBehaviour
+    public static UIManager UI { get { return instance.uiManager; } }
 
+    private UIManager uiManager;
     #endregion
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -24,6 +29,7 @@ public sealed class Managers : MonoBehaviour
 
         DontDestroyOnLoad(go);
 
+        instance.uiManager = CreateManager<UIManager>(go.transform);
     }
 
     private static T CreateManager<T>(Transform parent) where T : Component, IManager

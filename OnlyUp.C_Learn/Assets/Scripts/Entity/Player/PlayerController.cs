@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IUpdate
+public class PlayerController : MonoBehaviour
 {
     private Rigidbody myRb;
 
@@ -25,20 +25,5 @@ public class PlayerController : MonoBehaviour, IUpdate
     public void OnJump(InputAction.CallbackContext context)
     {
 
-    }
-
-    void IUpdate.Connect()
-    {
-        
-    }
-
-    void IUpdate.OnUpdate()
-    {
-        
-    }
-
-    void IUpdate.OnFixedUpdate()
-    {
-        
     }
 }
