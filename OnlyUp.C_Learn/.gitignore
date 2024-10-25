@@ -71,7 +71,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-#Custom 
-#https://assetstore.unity.com/packages/3d/environments/industrial/polygon-construction-low-poly-3d-art-by-synty-168036
-/[Aa]ssets/PolygonConstruction/*
-/[Aa]ssets/PolygonConstruction.meta
+#Custom
