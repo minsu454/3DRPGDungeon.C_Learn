@@ -5,11 +5,8 @@ public sealed class Managers : MonoBehaviour
     private static Managers instance;
 
     #region No MonoBehaviour
-    public static ResourcesManager Resource { get { return instance.resourcesManager; } }
     public static SceneManagerEx Scene { get { return instance.sceneManagerEx; } }
 
-
-    private ResourcesManager resourcesManager = new ResourcesManager();
     private SceneManagerEx sceneManagerEx = new SceneManagerEx();
     #endregion
 
