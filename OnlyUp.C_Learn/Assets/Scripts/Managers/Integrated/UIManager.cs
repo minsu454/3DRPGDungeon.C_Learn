@@ -10,7 +10,7 @@ public sealed class UIManager : MonoBehaviour, IManager
 {
     private readonly Dictionary<Enum, GameObject> uiContainerDic = new Dictionary<Enum, GameObject>();     //UI 타입 별로 프리팹 저장하는 dic
 
-    private readonly Stack<GameObject> depth = new Stack<GameObject>(); //UI 뎁스
+    private readonly Stack<BaseUI> depth = new Stack<BaseUI>(); //UI 뎁스
     private Transform mainCanvas;                                       //Scene마다 있는 mainCanvas저장 변수
 
     public void Init()
@@ -66,26 +66,25 @@ public sealed class UIManager : MonoBehaviour, IManager
     /// <summary>
     /// UI 생성 함수
     /// </summary>
-    public BasePopup CreateUI(Enum type, bool useMainCanvas = true, bool curPopupActive = true)
+    public void CreateUI(Enum type, bool useMainCanvas = true, bool curPopupActive = true)
     {
         if (!uiContainerDic.TryGetValue(type, out GameObject uiGo))
         {
-            Debug.LogWarning($"Is Not UI : {type}");
-            return null;
+            Debug.LogWarning($"Is Not Scene base UI : {type}");
+            return;
         }
 
         GameObject clone = Instantiate(uiGo, useMainCanvas ? mainCanvas : null);
 
-        if (depth.TryPeek(out GameObject go) && curPopupActive)
+        if (depth.TryPeek(out BaseUI beforeUI) && curPopupActive)
         {
-            go.SetActive(false);
+            beforeUI.gameObject.SetActive(false);
         }
+        
+        BaseUI afterUI = clone.GetComponent<BaseUI>();
+        afterUI.Init();
 
-        depth.Push(clone);
-
-        BasePopup popup = clone.GetComponent<BasePopup>();
-
-        return popup;
+        depth.Push(beforeUI);
     }
 
     /// <summary>
@@ -93,7 +92,7 @@ public sealed class UIManager : MonoBehaviour, IManager
     /// </summary>
     public void CloseUI(Action LoadScene = null)
     {
-        if (depth.Count == 0)
+        if (depth.Count == 1)
         {
             return;
         }
@@ -107,9 +106,10 @@ public sealed class UIManager : MonoBehaviour, IManager
 
         Destroy(depth.Pop());
 
-        if (depth.TryPeek(out GameObject go))
+        if (depth.TryPeek(out BaseUI baseUI))
         {
-            go.SetActive(true);
+            baseUI.Init();
+            baseUI.gameObject.SetActive(true);
         }
     }
 }
