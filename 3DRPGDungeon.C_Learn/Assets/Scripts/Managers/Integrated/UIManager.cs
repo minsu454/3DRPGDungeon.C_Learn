@@ -11,7 +11,7 @@ public sealed class UIManager : MonoBehaviour, IManager
     private readonly Dictionary<Enum, GameObject> uiContainerDic = new Dictionary<Enum, GameObject>();     //UI 타입 별로 프리팹 저장하는 dic
 
     private readonly Stack<BaseUI> depth = new Stack<BaseUI>(); //UI 뎁스
-    private Transform mainCanvas;                                       //Scene마다 있는 mainCanvas저장 변수
+    private Transform mainCanvas;                               //Scene마다 있는 mainCanvas저장 변수
 
     public void Init()
     {

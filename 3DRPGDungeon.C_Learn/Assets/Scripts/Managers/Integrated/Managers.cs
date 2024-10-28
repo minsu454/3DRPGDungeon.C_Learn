@@ -6,8 +6,10 @@ public sealed class Managers : MonoBehaviour
 
     #region No MonoBehaviour
     public static SceneManagerEx Scene { get { return instance.sceneManagerEx; } }
+    public static AddressableManager Addressable { get { return instance.addressableManager; } }
 
     private SceneManagerEx sceneManagerEx = new SceneManagerEx();
+    private AddressableManager addressableManager = new AddressableManager();
     #endregion
 
     #region MonoBehaviour
@@ -26,6 +28,8 @@ public sealed class Managers : MonoBehaviour
 
         DontDestroyOnLoad(go);
 
+        instance.addressableManager.Init();
+
         instance.uiManager = CreateManager<UIManager>(go.transform);
     }
 
@@ -38,10 +42,5 @@ public sealed class Managers : MonoBehaviour
         t.Init();
 
         return t;
-    }
-
-    private void Start()
-    {
-        
     }
 }

@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InGame : BaseUI
 {
     [SerializeField] private UICondition health;
     [SerializeField] private UICondition stamina;
+    [SerializeField] private UIInventory inventory;
+    [SerializeField] private TextMeshProUGUI promptText;
 
     public override void Init()
     {
         base.Init();
 
-        PlayerCondition condition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCondition>();
-        condition.health = health;
-        condition.stamina = stamina;
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        player.condition.health = health;
+        player.condition.stamina = stamina;
+        player.equipment.uiInventory = inventory;
+        player.interaction.PromptText = promptText;
 
         health.Init();
         stamina.Init();

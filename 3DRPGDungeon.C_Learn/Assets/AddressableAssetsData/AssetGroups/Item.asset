@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Item
+  m_EditorClassIdentifier: 
+  m_GroupName: Item
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 75a88a37d135eb34ab90860f96732154
+  m_SerializeEntries:
+  - m_GUID: 6592acc746daefd48b000de84371b096
+    m_Address: Battery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d64f4db325db884196d1f1a34e6e9fa
+    m_Address: Battery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f1df460e2aa3fa4bada5427cca0b6d9
+    m_Address: Battery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85dff71e8585421478d4d9c15345a806
+    m_Address: CoffeeCup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddcafb74588d7df4d927e19af006eed5
+    m_Address: CoffeeCup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89627d514db04ca4697b74640a0f6581
+    m_Address: CoffeeCup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc9b48c836ab70e48afb63d646f8f2a1
+    m_Address: Mushroom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c58e4e1b2057f04d9f0e6b250388947
+    m_Address: Mushroom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a8d84c6107045a449105651050c8a86
+    m_Address: Mushroom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b820cdb9f53f64c4c9c0054b96bd93be
+    m_Address: WalkieTalkie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04ec325b78a77f84e8f3a1b94ab2918b
+    m_Address: WalkieTalkie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce2d6ecd65b4bae4fb72dd9ae2c7e1f0
+    m_Address: WalkieTalkie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f24605ea164457e4bb97086f53aa76ac, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: bea401087e197c44084e0bff75c0a17e, type: 2}
+    - {fileID: 11400000, guid: 71df4414fac018842b70123a05c9208f, type: 2}

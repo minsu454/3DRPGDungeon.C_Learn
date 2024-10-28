@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Material
+  m_EditorClassIdentifier: 
+  m_GroupName: Material
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 32bbc4ed85502d441b9bed14292865ed
+  m_SerializeEntries:
+  - m_GUID: df7fe48a4062d5448bff2a0f1470487e
+    m_Address: Assets/LowPolyFoodLite/Materials/LP_FoodLite_MAIN.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 180c9256ecdbad44886ce57addd4ac16
+    m_Address: Assets/PolygonConstruction/Materials/PolygonConstruction_Mat_01_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f24605ea164457e4bb97086f53aa76ac, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4ab0b10da510a3249806324a6ed2aa43, type: 2}
+    - {fileID: 11400000, guid: 82ec34c5e86b9b248bb2199a360de3f9, type: 2}

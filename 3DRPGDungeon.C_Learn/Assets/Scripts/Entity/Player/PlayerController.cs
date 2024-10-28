@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IUnitParts
+public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
 {
     [Header("Movement")]
-    [SerializeField] float jumpPower;
+    [SerializeField] private float jumpPower;
+    [SerializeField] private bool isJump = false;
     [SerializeField] private LayerMask groundLayerMask;
     private Rigidbody myRb;
     private float speed = 5;
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour, IUnitParts
     private void OnFixedUpdate()
     {
         Move();
+        Jump();
     }
 
     private void OnLateUpdate()
@@ -60,6 +63,17 @@ public class PlayerController : MonoBehaviour, IUnitParts
         dir.y = myRb.velocity.y;
 
         myRb.velocity = dir;
+    }
+
+    private void Jump()
+    {
+        if (!isJump)
+            return;
+
+        if (!IsGrounded())
+            return;
+
+        AddImpulseForce(Vector3.up, jumpPower);
     }
 
     private void Look()
@@ -90,9 +104,13 @@ public class PlayerController : MonoBehaviour, IUnitParts
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
+        if (context.phase == InputActionPhase.Performed)
         {
-            myRb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            isJump = true;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            isJump = false;
         }
     }
 
@@ -111,16 +129,21 @@ public class PlayerController : MonoBehaviour, IUnitParts
             new Ray(transform.position + (Vector3.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
         };
 
-        Debug.DrawRay(transform.position + (Vector3.forward * 0.2f) + (transform.up * 0.01f), Vector3.down * 0.1f, Color.red, 5f);
+        Debug.DrawRay(transform.position + (Vector3.forward * 0.2f) + (transform.up * 0.01f), Vector3.down * 0.01f, Color.red, 5f);
 
         for (int i = 0; i < ray.Length; i++)
         {
-            if (Physics.Raycast(ray[i], 0.1f, groundLayerMask))
+            if (Physics.Raycast(ray[i], 0.01f, groundLayerMask))
             {
                 return true;
             }
         }
 
         return false;
+    }
+
+    public void AddImpulseForce(Vector3 dir, float power)
+    {
+        myRb.AddForce(dir * power, ForceMode.Impulse);
     }
 }
