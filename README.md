@@ -32,3 +32,9 @@
         * 카메라에 배터리 충전하는 텍스트 표시및 동작
     * 발전된 AI
         * 미구현
+
+### 사적 도전
+    * PopupManager -> UIManager 업그레이드(아직도 부족할 수도..)
+    * Interface 애용해보기
+    * player를 static단에 안 올리고 작업해보기
+    * addressable Asset을 활용해서 데이터 저장 및 불러오기
