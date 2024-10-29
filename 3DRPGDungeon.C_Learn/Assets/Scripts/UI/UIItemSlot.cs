@@ -6,7 +6,7 @@ using DG.Tweening;
 public class UIItemSlot : MonoBehaviour
 {
     private string itemName = string.Empty;
-    private BaseItemSO item;
+    public BaseItemSO item { get; private set; }
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI quantityText;
@@ -40,7 +40,6 @@ public class UIItemSlot : MonoBehaviour
                 return true;
             }
         }
-
 
         return false;
     }

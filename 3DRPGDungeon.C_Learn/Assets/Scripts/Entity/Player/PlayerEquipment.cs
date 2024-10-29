@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerEquipment : MonoBehaviour, IUnitParts
 {
     [SerializeField] private Transform equipParent;
+    private Equip curEquip;
 
     public UIInventory uiInventory;
 
@@ -28,9 +29,38 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
         }
     }
 
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed && curEquip != null)
+        {
+            curEquip.OnUse();
+            //uiInventory.
+        }
+    }
+
+    public void EquipNew()
+    {
+
+    }
+
     private void ChoiceItemKey(int key)
     {
-        uiInventory.SetCursor(key);
+        BaseItemSO equipItem = uiInventory.SetCursor(key);
+
+        if (curEquip != null)
+        {
+            if (curEquip.item == equipItem)
+                return;
+
+            Destroy(curEquip.gameObject);
+        }
+
+        if (equipItem == null)
+            return;
+
+        GameObject equip = Managers.Addressable.LoadItem<GameObject>($"Equip_{equipItem.name}");
+        curEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
+        curEquip.item = equipItem;
     }
 
     public bool TakeItem(string name)

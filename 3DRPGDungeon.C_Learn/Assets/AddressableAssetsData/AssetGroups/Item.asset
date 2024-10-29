@@ -89,6 +89,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36eb2107401b23b4ea2b21944efa7259
+    m_Address: Equip_Battery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12d8533abe5e56e4a9b529034d0a3bc9
+    m_Address: Equip_CoffeeCup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37cd36aaa50837741b65cbe1efab8c13
+    m_Address: Equip_ WalkieTalkie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7ac249a5e8665c439b7c679ce5ce7c2
+    m_Address: Equip_Mushroom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f24605ea164457e4bb97086f53aa76ac, type: 2}
   m_SchemaSet:

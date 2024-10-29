@@ -26,16 +26,19 @@ public class UIInventory : MonoBehaviour
         return completed;
     }
 
-    public void SetCursor(int key)
+    public bool UseItem()
     {
-        if (slotList[key] == CurEquipItem)
-            return;
+        return false;    
+    }
 
+    public BaseItemSO SetCursor(int key)
+    {
         if (CurEquipItem != null)
             CurEquipItem.Equipped = false;
 
-
         CurEquipItem = slotList[key];
         CurEquipItem.Equipped = true;
+
+        return slotList[key].item;
     }
 }
