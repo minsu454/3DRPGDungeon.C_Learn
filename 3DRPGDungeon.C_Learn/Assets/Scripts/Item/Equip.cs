@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class Equip : MonoBehaviour
 {
-    public BaseItemSO item;
+    public string itemName = string.Empty;
 
-    public virtual void OnUse()
+    public virtual void OnUse(UIInventory inventory)
     {
 
+    }
+
+    protected virtual void OnDisable()
+    {
+        itemName = string.Empty;
     }
 }

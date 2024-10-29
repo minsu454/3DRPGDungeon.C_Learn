@@ -5,8 +5,8 @@ using DG.Tweening;
 
 public class UIItemSlot : MonoBehaviour
 {
-    private string itemName = string.Empty;
-    public BaseItemSO item { get; private set; }
+    public string itemName { get; private set; } = string.Empty;
+    private BaseItemSO item;
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI quantityText;
@@ -44,12 +44,11 @@ public class UIItemSlot : MonoBehaviour
         return false;
     }
 
-    public void Set(string name)
+    public void Add(string name)
     {
         if (itemName == string.Empty)
         {
             itemName = name;
-
 
             Managers.Addressable.LoadItemAsync<Sprite>(name, (sprite) =>
             {
@@ -75,15 +74,31 @@ public class UIItemSlot : MonoBehaviour
         }
     }
 
+    public void Remove(out bool isDelete)
+    {
+        Quantity--;
+
+        isDelete = false;
+
+        if (Quantity == 0)
+        {
+            Clear();
+            isDelete = true;
+            return;
+        }
+
+        quantityText.text = Quantity > 1 ? Quantity.ToString() : string.Empty;
+    }
+
     public void SetOutLine()
     {
         outline.enabled = equipped;
     }
 
-    public void Clear()
+    private void Clear()
     {
         itemName = string.Empty;
-        icon.gameObject.SetActive(false);
+        icon.sprite = null;
         quantityText.text = string.Empty;
     }
 }

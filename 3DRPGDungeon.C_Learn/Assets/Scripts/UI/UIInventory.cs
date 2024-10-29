@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    public UIItemSlot CurEquipItem;
+    private UIItemSlot curEquipItem;
 
     [SerializeField] private List<UIItemSlot> slotList;
 
-    public bool TakeItem(string name)
+    public bool TakeItem(string name, out bool isEquipped)
     {
         bool completed = false;
+        isEquipped = false;
 
         for (int i = 0; i < slotList.Count; i++)
         {
             if (slotList[i].IsPossible(name))
             {
-                slotList[i].Set(name);
+                slotList[i].Add(name);
                 completed = true;
+
+                isEquipped = IsEquipped(slotList[i]);
                 break;
             }
         }
@@ -26,19 +29,27 @@ public class UIInventory : MonoBehaviour
         return completed;
     }
 
-    public bool UseItem()
+    public bool IsEquipped(UIItemSlot slot)
     {
-        return false;    
+        if (slot == null)
+            return false;
+
+        return slot.Equipped;
     }
 
-    public BaseItemSO SetCursor(int key)
+    public void UseItem(out bool isDelete)
     {
-        if (CurEquipItem != null)
-            CurEquipItem.Equipped = false;
+        curEquipItem.Remove(out isDelete);
+    }
 
-        CurEquipItem = slotList[key];
-        CurEquipItem.Equipped = true;
+    public string SetCursor(int key)
+    {
+        if (curEquipItem != null)
+            curEquipItem.Equipped = false;
 
-        return slotList[key].item;
+        curEquipItem = slotList[key];
+        curEquipItem.Equipped = true;
+
+        return curEquipItem.itemName;
     }
 }

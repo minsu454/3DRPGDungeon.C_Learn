@@ -63,12 +63,17 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
     {
         if (context.phase == InputActionPhase.Started && curInteractGo != null)
         {
-            bool completed = equipment.TakeItem(curInteractGo.name);
+            bool completed = equipment.TakeItem(curInteractGo.name, out bool isEquipped);
 
             if (!completed)
             {
                 Debug.Log("가방이 가득 찼습니다.");
                 return;
+            }
+
+            if(isEquipped)
+            {
+                equipment.EquipItem(curInteractGo.name);
             }
 
             Destroy(curInteractGo);

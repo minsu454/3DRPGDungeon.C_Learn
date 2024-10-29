@@ -1025,6 +1025,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 72af749b-9246-4de6-ae76-7f6100788d93
     m_ActionName: Player/Interaction[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9021209454076276506}
+        m_TargetAssemblyTypeName: PlayerEquipment, Assembly-CSharp
+        m_MethodName: OnUse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 83a7ba6f-08c9-49ae-b003-b21f97061339
+    m_ActionName: Player/Use[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Desktop
   m_DefaultActionMap: Player

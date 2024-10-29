@@ -102,7 +102,7 @@ MonoBehaviour:
     - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37cd36aaa50837741b65cbe1efab8c13
-    m_Address: Equip_ WalkieTalkie
+    m_Address: Equip_WalkieTalkie
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

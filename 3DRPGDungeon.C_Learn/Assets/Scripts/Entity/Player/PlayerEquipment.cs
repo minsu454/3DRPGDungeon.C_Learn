@@ -29,42 +29,41 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
         }
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnUse(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed && curEquip != null)
         {
-            curEquip.OnUse();
-            //uiInventory.
+            curEquip.OnUse(uiInventory);
         }
-    }
-
-    public void EquipNew()
-    {
-
     }
 
     private void ChoiceItemKey(int key)
     {
-        BaseItemSO equipItem = uiInventory.SetCursor(key);
+        string itemName = uiInventory.SetCursor(key);
 
         if (curEquip != null)
         {
-            if (curEquip.item == equipItem)
+            if (curEquip.name == itemName)
                 return;
 
             Destroy(curEquip.gameObject);
         }
 
-        if (equipItem == null)
+        if (itemName == string.Empty)
             return;
 
-        GameObject equip = Managers.Addressable.LoadItem<GameObject>($"Equip_{equipItem.name}");
-        curEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
-        curEquip.item = equipItem;
+        EquipItem(itemName);
     }
 
-    public bool TakeItem(string name)
+    public void EquipItem(string itemName)
     {
-        return uiInventory.TakeItem(name);
+        GameObject equip = Managers.Addressable.LoadItem<GameObject>($"Equip_{itemName}");
+        curEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
+        curEquip.name = itemName;
+    }
+
+    public bool TakeItem(string name, out bool isEquipped)
+    {
+        return uiInventory.TakeItem(name, out isEquipped);
     }
 }
