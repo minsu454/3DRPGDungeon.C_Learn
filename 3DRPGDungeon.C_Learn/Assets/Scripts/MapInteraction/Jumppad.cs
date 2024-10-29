@@ -14,13 +14,16 @@ public class Jumppad : MapInteraction
     {
         if (collision.collider.TryGetComponent(out IMapInteractionUnit unit))
         {
-            coTimer = StartCoroutine(CoTimer.Start(time, () =>
+            if (collision.contacts[0].point.y < collision.gameObject.transform.position.y)
             {
-                if (this == null)
-                    return;
+                coTimer = StartCoroutine(CoTimer.Start(time, () =>
+                {
+                    if (this == null)
+                        return;
 
-                unit.AddImpulseForce(Vector3.up, power);
-            }));
+                    unit.AddImpulseForce(Vector3.up, power);
+                }));
+            }
         }
     }
 
@@ -28,7 +31,8 @@ public class Jumppad : MapInteraction
     {
         if (collision.collider.TryGetComponent(out IMapInteractionUnit unit))
         {
-            StopCoroutine(coTimer);
+            if(coTimer != null)
+                StopCoroutine(coTimer);
         }
     }
 }
