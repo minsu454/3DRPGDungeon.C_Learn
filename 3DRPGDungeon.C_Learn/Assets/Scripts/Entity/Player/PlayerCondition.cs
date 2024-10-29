@@ -12,6 +12,7 @@ public class PlayerCondition : MonoBehaviour, IUnitParts, IDamagable
 
     private bool isInvincibility = false;
     public event Action TakeDamageEvent;
+    public event Action TakeStaminaEvent;
     public event Action RespawnEvent;
     public event Action DieEvent;
 
@@ -29,16 +30,18 @@ public class PlayerCondition : MonoBehaviour, IUnitParts, IDamagable
         stamina.Add(stamina.PassiveValue * Time.deltaTime);
     }
 
-    public void TakeDamage(float damage)
+    public bool TakeDamage(float damage)
     {
         if (isInvincibility)
-            return;
+            return false;
 
         health.Subtract(damage);
         TakeDamageEvent?.Invoke();
 
         if (health.CurValue == 0)
             Die();
+
+        return true;
     }
 
     public void Die()
@@ -54,9 +57,14 @@ public class PlayerCondition : MonoBehaviour, IUnitParts, IDamagable
         health.Add(value);
     }
 
-    public void TakeStamina(float value)
+    public bool TakeStamina(float value)
     {
+        if (stamina.CurValue - value <= 0)
+            return false;
+
         stamina.Subtract(value);
+        TakeStaminaEvent?.Invoke();
+        return true;
     }
 
     public void OnInvincibility(float duration)

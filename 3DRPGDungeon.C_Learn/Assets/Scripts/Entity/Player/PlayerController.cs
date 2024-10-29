@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayerMask;
     private bool isJump = false;
+    private const float jumpCost = 1f;
     private Rigidbody myRb;
     private float speed = 5;
     private Vector2 moveDir;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
     private HashSet<Coroutine> timerHashSet = new HashSet<Coroutine>();
 
     private IUnitCommander commander;
+    private PlayerCondition condition;
 
     public void OnAwake(IUnitCommander commander)
     {
@@ -43,7 +45,9 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
         this.commander = commander;
 
         Player player = commander as Player;
-        player.condition.DieEvent += OnDie;
+
+        condition = player.condition;
+        condition.DieEvent += OnDie;
 
         OnRespawn();
     }
@@ -111,6 +115,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
         if (!IsGrounded())
             return;
 
+        condition.TakeStamina(jumpCost);
         AddImpulseForce(Vector3.up, jumpPower * jumpDoping);
     }
 

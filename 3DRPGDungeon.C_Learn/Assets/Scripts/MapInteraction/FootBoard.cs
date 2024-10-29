@@ -56,8 +56,7 @@ public class FootBoard : MonoBehaviour
         {
             if (collision.contacts[0].point.y < collision.gameObject.transform.position.y)
             {
-                Debug.Log("true");
-                collision.gameObject.transform.SetParent(this.transform);
+                collision.gameObject.transform.SetParent(transform);
             }
         }
     }
