@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ConsumableItemSO", menuName = "SO/Item/CreateConsumableSO")]
+[CreateAssetMenu(fileName = "ConsumableItemSO", menuName = "SO/Item/CreateConsumableSO", order = 1)]
 public class ConsumableItemSO : BaseItemSO
 {
     [Header("Consumable")]

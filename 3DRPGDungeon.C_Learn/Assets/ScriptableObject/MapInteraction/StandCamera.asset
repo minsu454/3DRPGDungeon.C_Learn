@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f2782ad0a06c5418b60f92053ff948, type: 3}
+  m_Script: {fileID: 11500000, guid: 8da35e5ce2812dd4097562160c6afc88, type: 3}
   m_Name: StandCamera
   m_EditorClassIdentifier: 
   displayName: "\uCE74\uBA54\uB77C"
   description: "\uAC74\uC804\uC9C0\uB85C \uC218\uB3D9\uCDA9\uC804 \uD574\uC57C\uD560
     \uAC83 \uAC19\uB2E4."
   type: 2
+  needItemName: Battery
+  needItemDescription: "\uCDA9\uC804\uD558\uAE30"

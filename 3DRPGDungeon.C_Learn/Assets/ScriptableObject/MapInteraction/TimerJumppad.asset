@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f2782ad0a06c5418b60f92053ff948, type: 3}
+  m_Script: {fileID: 11500000, guid: 8da35e5ce2812dd4097562160c6afc88, type: 3}
   m_Name: TimerJumppad
   m_EditorClassIdentifier: 
   displayName: "\uD2B9\uBCC4\uD55C \uC810\uD504\uB300"
   description: "\uCC28\uC9D5\uD615 \uC810\uD504\uB300\uC774\uB2E4.(2\uCD08\uB4A4
     \uC790\uB3D9\uBC1C\uC0AC)"
   type: 2
+  needItemName: 

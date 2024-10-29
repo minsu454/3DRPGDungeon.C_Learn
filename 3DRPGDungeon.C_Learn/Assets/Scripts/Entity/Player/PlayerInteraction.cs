@@ -17,6 +17,7 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
     private BaseItemSO curItemSO;
 
     public TextMeshProUGUI PromptText;
+    public TextMeshProUGUI InteractionPromptText;
     private PlayerEquipment equipment;
 
     public void OnAwake(IUnitCommander commander)
@@ -44,32 +45,32 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
             if (hit.collider.gameObject == curInteractGo)
                 return;
 
-            curInteractGo = hit.collider.gameObject;
-            SetPromptText();
+            SetPromptText(hit.collider.gameObject);
         }
         else
         {
             curInteractGo = null;
             curItemSO = null;
             PromptText.gameObject.SetActive(false);
+            InteractionPromptText.gameObject.SetActive(false);
         }
     }
 
-    private void SetPromptText()
+    private void SetPromptText(GameObject go)
     {
-        Managers.Addressable.LoadItemAsync<BaseItemSO>(curInteractGo.name, (handle) =>
+        curInteractGo = go;
+        BaseItemSO baseItemSO = Managers.Addressable.LoadItem<BaseItemSO>(go.name);
+        PromptText.text = $"{baseItemSO.displayName}\n{baseItemSO.description}";
+
+        if (baseItemSO.type == ItemType.MapInteraction)
         {
-            if(this == null)
-                return;
+            MapInteractionItemSO tempSO = baseItemSO as MapInteractionItemSO;
+            InteractionPromptText.text = tempSO.needItemDescription;
+            InteractionPromptText.gameObject.SetActive(true);
+        }
 
-            if (curInteractGo.name != handle.name)
-                return;
-
-            PromptText.text = $"{handle.displayName}\n{handle.description}";
-
-            curItemSO = handle;
-            PromptText.gameObject.SetActive(true);
-        });
+        curItemSO = baseItemSO;
+        PromptText.gameObject.SetActive(true);
     }
 
     public void OnInteractInput(InputAction.CallbackContext context)
@@ -78,7 +79,19 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
         {
             if (curItemSO.type == ItemType.MapInteraction)
             {
-                //equipment.CurEquip
+                if (!curInteractGo.TryGetComponent<IMapInteraction>(out var mapInteracion))
+                    return;
+
+                if(equipment.CurEquip == null)
+                    return;
+
+                if (mapInteracion.EqualsItem(equipment.CurEquip.itemName))
+                {
+                    mapInteracion.Select();
+                    equipment.UseItem();
+
+                    InteractionPromptText.gameObject.SetActive(false);
+                }
             }
             else
             {

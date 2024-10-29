@@ -38,8 +38,13 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
     {
         if (context.phase == InputActionPhase.Performed && CurEquip != null)
         {
-            CurEquip.OnUse(uiInventory);
+            UseItem();
         }
+    }
+
+    public void UseItem()
+    {
+        CurEquip.OnUse(uiInventory);
     }
 
     private void ChoiceItemKey(int key)
@@ -65,7 +70,7 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
         GameObject equip = Managers.Addressable.LoadItem<GameObject>($"Equip_{itemName}");
         CurEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
 
-        CurEquip.Init(controller, condition);
+        CurEquip.Init(itemName, controller, condition);
     }
 
     public bool TakeItem(string name, out bool isEquipped)

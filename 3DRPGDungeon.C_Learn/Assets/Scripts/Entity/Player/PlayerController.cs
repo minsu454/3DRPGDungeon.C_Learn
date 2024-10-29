@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
 
     [Header("Camera")]
     [SerializeField] private List<Camera> cameraList;
+    private int showCameraIndex = 0;
 
     [Header("Look")]
     [SerializeField] private Transform camerasTr;
@@ -49,7 +50,19 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
 
     private void ResetCamera()
     {
-        cameraList[0].depth = 1;
+        cameraList[showCameraIndex].depth = -10;
+        showCameraIndex = 0;
+        cameraList[showCameraIndex].depth = 1;
+    }
+
+    private void NextCamera()
+    {
+        cameraList[showCameraIndex].depth = -10;
+
+        showCameraIndex++;
+        showCameraIndex %= cameraList.Count;
+
+        cameraList[showCameraIndex].depth = 1;
     }
 
     public void OnRespawn()
@@ -141,7 +154,10 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
 
     public void OnCameraChange(InputAction.CallbackContext context)
     {
-
+        if (context.phase == InputActionPhase.Started)
+        {
+            NextCamera();
+        }
     }
 
     private bool IsGrounded()

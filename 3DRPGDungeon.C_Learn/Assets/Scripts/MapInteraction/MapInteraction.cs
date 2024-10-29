@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class MapInteraction : MonoBehaviour
 {
-    [SerializeField] protected BaseItemSO itemSO;
+    [SerializeField] protected MapInteractionItemSO itemSO;
 }

@@ -6,12 +6,9 @@ public class Equip_Consumable : Equip
     public override void OnUse(UIInventory inventory)
     {
         ConsumableItemSO slot = inventory.CurEquipItem.Item as ConsumableItemSO;
-        inventory.CurItemRemove(out bool isDelete);
-
         ApplyItem(slot);
 
-        if (isDelete)
-            gameObject.SetActive(false);
+        base.OnUse(inventory);
     }
 
     private void ApplyItem(ConsumableItemSO slot)
@@ -34,11 +31,5 @@ public class Equip_Consumable : Equip
                     break;
             }
         }
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        Destroy(gameObject);
     }
 }

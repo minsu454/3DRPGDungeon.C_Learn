@@ -113,26 +113,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2d30613b93cd99944ac08682c8b60a54
-    m_Address: TimerJumppad
+  - m_GUID: 46b831ac416f95f458dc0251c73a5e7f
+    m_Address: CampFire
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cae6a5a16ce8ffa4d9f10c877e6e11c2
-    m_Address: Jumppad
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4ecb2b21fdbddab4d9c6c4616d5ceb88
+  - m_GUID: 9a585694db718414293565a65bbc9293
     m_Address: StandCamera
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0ca4c54b5ee83ef4aad54f05de3461dc
-    m_Address: CampFire
+  - m_GUID: ac3236a155a8091419160fae83669bba
+    m_Address: Jumppad
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe2d7cf143a0d284185570b251c46d61
+    m_Address: TimerJumppad
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

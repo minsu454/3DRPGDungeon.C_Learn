@@ -138,7 +138,7 @@ PrefabInstance:
     - target: {fileID: 723903717552427010, guid: f24e24f912206fe4d9e05241117346f2, type: 3}
       propertyPath: itemSO
       value: 
-      objectReference: {fileID: 11400000, guid: cae6a5a16ce8ffa4d9f10c877e6e11c2, type: 2}
+      objectReference: {fileID: 11400000, guid: ac3236a155a8091419160fae83669bba, type: 2}
     - target: {fileID: 7474928495907288645, guid: f24e24f912206fe4d9e05241117346f2, type: 3}
       propertyPath: m_Name
       value: Jumppad
@@ -211,7 +211,7 @@ PrefabInstance:
     - target: {fileID: 723903717552427010, guid: f24e24f912206fe4d9e05241117346f2, type: 3}
       propertyPath: itemSO
       value: 
-      objectReference: {fileID: 11400000, guid: 2d30613b93cd99944ac08682c8b60a54, type: 2}
+      objectReference: {fileID: 11400000, guid: fe2d7cf143a0d284185570b251c46d61, type: 2}
     - target: {fileID: 7474928495907288645, guid: f24e24f912206fe4d9e05241117346f2, type: 3}
       propertyPath: m_Name
       value: TimerJumppad
@@ -317,6 +317,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4902814559293333660, guid: d6a5e2c4aefa6804b8f7d2af9a9676b5, type: 3}
+      propertyPath: itemSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 46b831ac416f95f458dc0251c73a5e7f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -945,7 +949,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1000,13 +1004,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023498369}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12378042, y: -0, z: -0, w: 0.99230963}
-  m_LocalPosition: {x: 0, y: 0.8, z: -3.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281217116}
-  m_LocalEulerAnglesHint: {x: 14.221, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1023498372
 Camera:
   m_ObjectHideFlags: 0
@@ -1043,7 +1047,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: -10
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1179,6 +1183,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 83a7ba6f-08c9-49ae-b003-b21f97061339
     m_ActionName: Player/Use[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1084292996}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnCameraChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e797d915-bcbd-421b-ab18-4cb42c244dfb
+    m_ActionName: Player/ChangeCemara[/Keyboard/f5]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Desktop
   m_DefaultActionMap: Player
@@ -3445,7 +3465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 897591e82f6ff4e4190a011615c1e985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSO: {fileID: 11400000, guid: 4ecb2b21fdbddab4d9c6c4616d5ceb88, type: 2}
+  itemSO: {fileID: 11400000, guid: 9a585694db718414293565a65bbc9293, type: 2}
 --- !u!1 &5562598476935285231
 GameObject:
   m_ObjectHideFlags: 0
@@ -4728,6 +4748,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   PromptText: {fileID: 0}
+  InteractionPromptText: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
