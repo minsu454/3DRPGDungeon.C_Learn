@@ -68,6 +68,7 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
     public void EquipItem(string itemName)
     {
         GameObject equip = Managers.Addressable.LoadItem<GameObject>($"Equip_{itemName}");
+
         CurEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
 
         CurEquip.Init(itemName, controller, condition);

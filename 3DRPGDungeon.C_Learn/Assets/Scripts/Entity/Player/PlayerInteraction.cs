@@ -60,6 +60,7 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
     {
         curInteractGo = go;
         BaseItemSO baseItemSO = Managers.Addressable.LoadItem<BaseItemSO>(go.name);
+
         PromptText.text = $"{baseItemSO.displayName}\n{baseItemSO.description}";
 
         if (baseItemSO.type == ItemType.MapInteraction)

@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8da35e5ce2812dd4097562160c6afc88, type: 3}
-  m_Name: StandCamera
+  m_Name: FootBoard
   m_EditorClassIdentifier: 
-  displayName: "\uCE74\uBA54\uB77C"
-  description: "\uAC74\uC804\uC9C0\uB85C \uC218\uB3D9\uCDA9\uC804 \uD574\uC57C\uD560
-    \uAC83 \uAC19\uB2E4."
+  displayName: 
+  description: 
   type: 2
-  needItemName: Battery
-  needItemDescription: "E\uD0A4\uB97C \uB20C\uB7EC \uCDA9\uC804\uD558\uAE30"
+  needItemName: 
+  needItemDescription: 

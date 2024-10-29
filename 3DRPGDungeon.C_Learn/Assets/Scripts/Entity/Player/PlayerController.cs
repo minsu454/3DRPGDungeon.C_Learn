@@ -170,11 +170,11 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
             new Ray(transform.position + (Vector3.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
         };
 
-        Debug.DrawRay(transform.position + (Vector3.forward * 0.2f) + (transform.up * 0.01f), Vector3.down * 0.01f, Color.red, 5f);
+        Debug.DrawRay(transform.position + (Vector3.forward * 0.2f) + (transform.up * 0.01f), Vector3.down * 0.02f, Color.red, 5f);
 
         for (int i = 0; i < ray.Length; i++)
         {
-            if (Physics.Raycast(ray[i], 0.01f, groundLayerMask))
+            if (Physics.Raycast(ray[i], 0.02f, groundLayerMask))
             {
                 return true;
             }
