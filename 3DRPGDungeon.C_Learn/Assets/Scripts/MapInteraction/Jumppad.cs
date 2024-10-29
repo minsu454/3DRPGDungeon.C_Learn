@@ -24,7 +24,7 @@ public class Jumppad : MapInteraction
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit(Collision collision)
     {
         if (collision.collider.TryGetComponent(out IMapInteractionUnit unit))
         {
