@@ -7,10 +7,10 @@ public class CampFire : MapInteraction
     public int damage;
     public float damageRate;
 
-    List<IDamagable> thingList = new List<IDamagable>();
+    private List<IDamagable> thingList = new List<IDamagable>();
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         InvokeRepeating(nameof(DealDamage), 0, damageRate);
     }
