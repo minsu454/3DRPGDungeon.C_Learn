@@ -16,4 +16,7 @@ MonoBehaviour:
   description: "\uBA39\uC73C\uBA74 \uC7A0\uC2DC\uB3D9\uC548 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD55C\uB2E4."
   type: 1
   maxStack: 10
-  consumableList: []
+  consumableList:
+  - type: 3
+    Value: 10
+    Duration: 5

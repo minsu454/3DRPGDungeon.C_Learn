@@ -8,12 +8,13 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour, IUnitParts
 {
     [SerializeField] private float checkRate = 0.05f;
-    [SerializeField] private Camera firstPersonCamera;
     [SerializeField] private float maxDistance;
+    private Camera firstPersonCamera;
     private float lastCheckTime;
     [SerializeField] private LayerMask layerMask;
 
     private GameObject curInteractGo;
+    private BaseItemSO curItemSO;
 
     public TextMeshProUGUI PromptText;
     private PlayerEquipment equipment;
@@ -21,6 +22,8 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
     public void OnAwake(IUnitCommander commander)
     {
         commander.UpdateEvent += OnUpdate;
+
+        firstPersonCamera = Camera.main;
 
         Player player = commander as Player;
         equipment = player.equipment;
@@ -47,37 +50,54 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
         else
         {
             curInteractGo = null;
+            curItemSO = null;
             PromptText.gameObject.SetActive(false);
         }
     }
 
     private void SetPromptText()
     {
-        BaseItemSO baseItemSO = Managers.Addressable.LoadItem<ScriptableObject>(curInteractGo.name) as BaseItemSO;
-        PromptText.text = $"{baseItemSO.displayName}\n{baseItemSO.description}";
+        Managers.Addressable.LoadItemAsync<BaseItemSO>(curInteractGo.name, (handle) =>
+        {
+            if(this == null)
+                return;
 
-        PromptText.gameObject.SetActive(true);
+            if (curInteractGo.name != handle.name)
+                return;
+
+            PromptText.text = $"{handle.displayName}\n{handle.description}";
+
+            curItemSO = handle;
+            PromptText.gameObject.SetActive(true);
+        });
     }
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started && curInteractGo != null)
         {
-            bool completed = equipment.TakeItem(curInteractGo.name, out bool isEquipped);
-
-            if (!completed)
+            if (curItemSO.type == ItemType.MapInteraction)
             {
-                Debug.Log("가방이 가득 찼습니다.");
-                return;
+                //equipment.CurEquip
             }
-
-            if(isEquipped)
+            else
             {
-                equipment.EquipItem(curInteractGo.name);
-            }
+                bool completed = equipment.TakeItem(curInteractGo.name, out bool isEquipped);
 
-            Destroy(curInteractGo);
-            PromptText.gameObject.SetActive(false);
+                if (!completed)
+                {
+                    Debug.Log("가방이 가득 찼습니다.");
+                    return;
+                }
+
+                if (isEquipped)
+                {
+                    equipment.EquipItem(curInteractGo.name);
+                }
+
+                Destroy(curInteractGo);
+                PromptText.gameObject.SetActive(false);
+            }
         }
     }
 }

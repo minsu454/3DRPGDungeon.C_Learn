@@ -1,5 +1,8 @@
-﻿public enum ConsumableType
+public enum ConsumableType
 {
     Health,
-    Hunger
+    Stamina,
+    Invincibility,
+    MoveSpeed,
+
 }

@@ -4,6 +4,7 @@ using System;
 public class ItemDataConsumbale
 {
     public ConsumableType type;
-    public float value;
+    public float Value;
+    public float Duration;
 }
 

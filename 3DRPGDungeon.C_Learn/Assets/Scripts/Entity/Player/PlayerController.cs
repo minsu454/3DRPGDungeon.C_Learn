@@ -1,4 +1,6 @@
+using Common.CoTimer;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,8 +9,8 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
 {
     [Header("Movement")]
     [SerializeField] private float jumpPower;
-    [SerializeField] private bool isJump = false;
     [SerializeField] private LayerMask groundLayerMask;
+    private bool isJump = false;
     private Rigidbody myRb;
     private float speed = 5;
     private Vector2 moveDir;
@@ -26,20 +28,43 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
     private float camCurXRot;
     private bool canLook = true;
 
+    private float moveDoping = 1;
+    private float jumpDoping = 1;
+    private HashSet<Coroutine> timerHashSet = new HashSet<Coroutine>();
+
+    private IUnitCommander commander;
+
     public void OnAwake(IUnitCommander commander)
     {
         myRb = GetComponent<Rigidbody>();
         ResetCamera();
 
-        Cursor.lockState = CursorLockMode.Locked;
+        this.commander = commander;
 
-        commander.FixedUpdateEvent += OnFixedUpdate;
-        commander.LateUpdateEvent += OnLateUpdate;
+        Player player = commander as Player;
+        player.condition.DieEvent += OnDie;
+
+        OnRespawn();
     }
 
     private void ResetCamera()
     {
         cameraList[0].depth = 1;
+    }
+
+    public void OnRespawn()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        commander.FixedUpdateEvent += OnFixedUpdate;
+        commander.LateUpdateEvent += OnLateUpdate;
+    }
+
+    public void OnDie()
+    {
+        commander.FixedUpdateEvent -= OnFixedUpdate;
+        commander.LateUpdateEvent -= OnLateUpdate;
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void OnFixedUpdate()
@@ -59,7 +84,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
     private void Move()
     {
         Vector3 dir = transform.forward * moveDir.y + transform.right * moveDir.x;
-        dir *= speed;
+        dir *= (speed * moveDoping);
         dir.y = myRb.velocity.y;
 
         myRb.velocity = dir;
@@ -73,7 +98,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
         if (!IsGrounded())
             return;
 
-        AddImpulseForce(Vector3.up, jumpPower);
+        AddImpulseForce(Vector3.up, jumpPower * jumpDoping);
     }
 
     private void Look()
@@ -145,5 +170,34 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
     public void AddImpulseForce(Vector3 dir, float power)
     {
         myRb.AddForce(dir * power, ForceMode.Impulse);
+    }
+
+    public void MoveBoost(float value, float duration)
+    {
+        float plus = value / 10;
+
+        moveDoping += plus;
+
+        StartCoroutine(CoTimer.Start(duration, () =>
+        {
+            if (this == null)
+                return;
+
+            moveDoping -= plus;
+        }));
+    }
+
+    public void JumpBoost(float value, float duration)
+    {
+        float plus = value / 10;
+        jumpDoping += plus;
+
+        StartCoroutine(CoTimer.Start(duration, () =>
+        {
+            if (this == null)
+                return;
+
+            jumpDoping -= plus;
+        }));
     }
 }

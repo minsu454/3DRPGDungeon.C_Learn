@@ -7,13 +7,18 @@ using UnityEngine.InputSystem;
 public class PlayerEquipment : MonoBehaviour, IUnitParts
 {
     [SerializeField] private Transform equipParent;
-    private Equip curEquip;
+    public Equip CurEquip { get; private set; }
 
     public UIInventory uiInventory;
 
+    private PlayerController controller;
+    private PlayerCondition condition;
+
     public void OnAwake(IUnitCommander commander)
     {
-        
+        Player player = commander as Player;
+        controller = player.controller;
+        condition = player.condition;
     }
 
     public void OnItemCursorKey(InputAction.CallbackContext context)
@@ -31,9 +36,9 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
 
     public void OnUse(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed && curEquip != null)
+        if (context.phase == InputActionPhase.Performed && CurEquip != null)
         {
-            curEquip.OnUse(uiInventory);
+            CurEquip.OnUse(uiInventory);
         }
     }
 
@@ -41,12 +46,12 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
     {
         string itemName = uiInventory.SetCursor(key);
 
-        if (curEquip != null)
+        if (CurEquip != null)
         {
-            if (curEquip.name == itemName)
+            if (CurEquip.name == itemName)
                 return;
 
-            Destroy(curEquip.gameObject);
+            Destroy(CurEquip.gameObject);
         }
 
         if (itemName == string.Empty)
@@ -58,8 +63,9 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
     public void EquipItem(string itemName)
     {
         GameObject equip = Managers.Addressable.LoadItem<GameObject>($"Equip_{itemName}");
-        curEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
-        curEquip.name = itemName;
+        CurEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
+
+        CurEquip.Init(controller, condition);
     }
 
     public bool TakeItem(string name, out bool isEquipped)

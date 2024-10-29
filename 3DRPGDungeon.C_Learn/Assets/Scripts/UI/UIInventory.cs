@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    private UIItemSlot curEquipItem;
+    public UIItemSlot CurEquipItem { get; private set; }
 
     [SerializeField] private List<UIItemSlot> slotList;
 
@@ -37,19 +37,19 @@ public class UIInventory : MonoBehaviour
         return slot.Equipped;
     }
 
-    public void UseItem(out bool isDelete)
+    public void CurItemRemove(out bool delete)
     {
-        curEquipItem.Remove(out isDelete);
+        CurEquipItem.Remove(out delete);
     }
 
     public string SetCursor(int key)
     {
-        if (curEquipItem != null)
-            curEquipItem.Equipped = false;
+        if (CurEquipItem != null)
+            CurEquipItem.Equipped = false;
 
-        curEquipItem = slotList[key];
-        curEquipItem.Equipped = true;
+        CurEquipItem = slotList[key];
+        CurEquipItem.Equipped = true;
 
-        return curEquipItem.itemName;
+        return CurEquipItem.ItemName;
     }
 }

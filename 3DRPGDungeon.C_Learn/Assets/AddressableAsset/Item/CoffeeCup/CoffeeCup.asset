@@ -17,4 +17,7 @@ MonoBehaviour:
     \uB41C\uB2E4."
   type: 1
   maxStack: 3
-  consumableList: []
+  consumableList:
+  - type: 2
+    Value: 0
+    Duration: 3

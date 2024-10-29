@@ -9,6 +9,7 @@ public class InGame : BaseUI
     [SerializeField] private UICondition stamina;
     [SerializeField] private UIInventory inventory;
     [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private UIDamageIndictor damageIndictor;
 
     public override void Init()
     {
@@ -20,6 +21,7 @@ public class InGame : BaseUI
         player.condition.stamina = stamina;
         player.equipment.uiInventory = inventory;
         player.interaction.PromptText = promptText;
+        player.condition.TakeDamageEvent += damageIndictor.Flash;
 
         health.Init();
         stamina.Init();

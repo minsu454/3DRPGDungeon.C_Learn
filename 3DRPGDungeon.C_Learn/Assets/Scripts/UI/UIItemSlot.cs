@@ -5,8 +5,8 @@ using DG.Tweening;
 
 public class UIItemSlot : MonoBehaviour
 {
-    public string itemName { get; private set; } = string.Empty;
-    private BaseItemSO item;
+    public string ItemName { get; private set; } = string.Empty;
+    public BaseItemSO Item { get; private set; }
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI quantityText;
@@ -28,12 +28,12 @@ public class UIItemSlot : MonoBehaviour
 
     public bool IsPossible(string name)
     {
-        if (itemName == string.Empty)
+        if (ItemName == string.Empty)
             return true;
 
-        if (itemName == name)
+        if (ItemName == name)
         {
-            ConsumableItemSO temp = item as ConsumableItemSO;
+            ConsumableItemSO temp = Item as ConsumableItemSO;
 
             if (temp != null && Quantity < temp.maxStack)
             {
@@ -46,23 +46,23 @@ public class UIItemSlot : MonoBehaviour
 
     public void Add(string name)
     {
-        if (itemName == string.Empty)
+        if (ItemName == string.Empty)
         {
-            itemName = name;
+            ItemName = name;
 
             Managers.Addressable.LoadItemAsync<Sprite>(name, (sprite) =>
             {
                 if (this == null)
                     return;
 
-                if (itemName != name)
+                if (ItemName != name)
                     return;
 
                 icon.sprite = sprite;
                 icon.gameObject.SetActive(true);
                 icon.DOFade(1.0f, 0.5f).From(0);
             });
-            item = Managers.Addressable.LoadItem<BaseItemSO>(name);
+            Item = Managers.Addressable.LoadItem<BaseItemSO>(name);
         }
 
         Quantity++;
@@ -74,16 +74,16 @@ public class UIItemSlot : MonoBehaviour
         }
     }
 
-    public void Remove(out bool isDelete)
+    public void Remove(out bool delete)
     {
         Quantity--;
 
-        isDelete = false;
+        delete = false;
 
         if (Quantity == 0)
         {
             Clear();
-            isDelete = true;
+            delete = true;
             return;
         }
 
@@ -97,7 +97,7 @@ public class UIItemSlot : MonoBehaviour
 
     private void Clear()
     {
-        itemName = string.Empty;
+        ItemName = string.Empty;
         icon.sprite = null;
         quantityText.text = string.Empty;
     }

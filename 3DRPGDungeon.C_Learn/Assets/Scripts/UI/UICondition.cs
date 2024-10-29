@@ -5,30 +5,31 @@ public class UICondition : MonoBehaviour
 {
     public Image uiConditionBar;
 
-    private float curValue;
-    public float maxValue;
-    public float startValue;
-    public float passiveValue = 0;
+    public float CurValue { get; private set; }
+    public float MaxValue;
+    public float StartValue;
+    public float PassiveValue = 0;
 
     public void Init()
     {
-        curValue = startValue;
+        CurValue = StartValue;
+        ChangeUIBar();
     }
 
     private void ChangeUIBar()
     {
-        uiConditionBar.fillAmount = curValue / maxValue;
+        uiConditionBar.fillAmount = CurValue / MaxValue;
     }
 
     public void Add(float value)
     {
-        curValue = Mathf.Min(curValue + value, maxValue);
+        CurValue = Mathf.Min(CurValue + value, MaxValue);
         ChangeUIBar();
     }
 
     public void Subtract(float value)
     {
-        curValue = Mathf.Max(curValue - value, 0);
+        CurValue = Mathf.Max(CurValue - value, 0);
         ChangeUIBar();
     }
 }
