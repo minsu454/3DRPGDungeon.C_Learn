@@ -67,8 +67,8 @@ MonoBehaviour:
   health: {fileID: 5053001909951348653}
   stamina: {fileID: 1044970688826853489}
   inventory: {fileID: 4487515602135057848}
-  promptText: {fileID: 1190537885332451548}
-  InteractionPromptText: {fileID: 748093989884946066}
+  InfoCommentText: {fileID: 1190537885332451548}
+  MapItemInteractionCommentText: {fileID: 748093989884946066}
   damageIndictor: {fileID: 2030192561347901188}
 --- !u!114 &1544103758754726841
 MonoBehaviour:
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 1165386217534940423}
   - component: {fileID: 748093989884946066}
   m_Layer: 5
-  m_Name: InteractionPromptText
+  m_Name: MapItemInteractionCommentText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 3393875028599477497}
   - component: {fileID: 1190537885332451548}
   m_Layer: 5
-  m_Name: PromptText
+  m_Name: InfoCommentText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -733,8 +733,8 @@ MonoBehaviour:
   health: {fileID: 0}
   stamina: {fileID: 0}
   inventory: {fileID: 0}
-  promptText: {fileID: 0}
-  InteractionPromptText: {fileID: 0}
+  InfoCommentText: {fileID: 0}
+  MapItemInteractionCommentText: {fileID: 0}
   damageIndictor: {fileID: 0}
 --- !u!114 &1971375964923477202
 MonoBehaviour:

@@ -5,12 +5,16 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class AddressableManager : IManager
 {
+
     public void Init()
     {
         Addressables.InitializeAsync();
     }
 
-    public T LoadItem<T>(string name) where T : class
+    /// <summary>
+    /// 동기로 정보 가져오기
+    /// </summary>
+    public T LoadData<T>(string name) where T : class
     {
         var loadAsset = Addressables.LoadAssetAsync<T>(name);
 
@@ -24,7 +28,10 @@ public class AddressableManager : IManager
         throw new Exception($"Addressable Load Failed : {name}");
     }
 
-    public void LoadItemAsync<T>(string name, Action<T> callback) where T : class
+    /// <summary>
+    /// 비동기로 정보 가져오기
+    /// </summary>
+    public void LoadDataAsync<T>(string name, Action<T> callback) where T : class
     {
         var loadAsset = Addressables.LoadAssetAsync<T>(name);
 

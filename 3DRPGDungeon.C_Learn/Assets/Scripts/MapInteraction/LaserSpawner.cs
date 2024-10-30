@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class LaserSpawner : MapInteraction
 {
-    [SerializeField] private LayerMask layerMask;
-    [SerializeField] private float damageRate;
-    [SerializeField] private LaserData[] LaserPointArr;
-
-    private List<IDamagable> thingList = new List<IDamagable>();
+    [SerializeField] private LayerMask layerMask;           //검사해올 레이어
+    [SerializeField] private float damageRate;              //데미지 주기
+    [SerializeField] private LaserData[] LaserPointArr;     //레이저데이터 리스트
 
     private void Start()
     {
@@ -20,6 +18,9 @@ public class LaserSpawner : MapInteraction
         DrawLaser();
     }
 
+    /// <summary>
+    /// 레이에 라인 그려주는 함수
+    /// </summary>
     private void DrawLaser()
     {
         for (int i = 0; i < LaserPointArr.Length; i++)
@@ -30,6 +31,9 @@ public class LaserSpawner : MapInteraction
         }
     }
 
+    /// <summary>
+    /// 지속 딜 입히는 함수
+    /// </summary>
     private void DealDamage()
     {
         for (int i = 0; i < LaserPointArr.Length; i++)

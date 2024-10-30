@@ -11,7 +11,7 @@ public sealed class SceneManagerEx : IManager
         
     }
 
-    private readonly Dictionary<SceneType, string> typeToStringDic = new Dictionary<SceneType, string>();
+    private readonly Dictionary<SceneType, string> typeToStringDic = new Dictionary<SceneType, string>();   //씬타입 string 변환 저장해 놓는 Dictionary
 
     /// <summary>
     /// 씬 로드 함수

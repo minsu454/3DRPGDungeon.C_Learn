@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandCamera : MapInteraction, IMapInteraction
+public class StandCamera : MapInteraction, IMapItemInteraction
 {
     public bool EqualsItem(string itemName)
     {

@@ -6,21 +6,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerEquipment : MonoBehaviour, IUnitParts
 {
-    [SerializeField] private Transform equipParent;
-    public Equip CurEquip { get; private set; }
+    [SerializeField] private Transform equipParent;     //장착할 물건에 부모 Transform
+    public Equip CurEquip { get; private set; }         //현재 장착한 물건
 
-    public UIInventory uiInventory;
+    public UIInventory uiInventory;                     //ui인벤토리
 
-    private PlayerController controller;
-    private PlayerCondition condition;
+    private PlayerController controller;                //플레이어 컨트롤러
+    private PlayerCondition condition;                  //플레이어 상태
 
-    public void OnAwake(IUnitCommander commander)
+    public void OnInit(IUnitCommander commander)
     {
         Player player = commander as Player;
         controller = player.controller;
         condition = player.condition;
     }
 
+    /// <summary>
+    /// 인벤토리 키 입력 event
+    /// </summary>
     public void OnItemCursorKey(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
@@ -34,6 +37,9 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
         }
     }
 
+    /// <summary>
+    /// 아이템 사용 키 입력 event
+    /// </summary>
     public void OnUse(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed && CurEquip != null)
@@ -42,11 +48,17 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
         }
     }
 
+    /// <summary>
+    /// 아이템 사용하는 함수
+    /// </summary>
     public void UseItem()
     {
         CurEquip.OnUse(uiInventory);
     }
 
+    /// <summary>
+    /// 인벤토리에 어떤 것을 골랐는지 알려주는 함수
+    /// </summary>
     private void ChoiceItemKey(int key)
     {
         string itemName = uiInventory.SetCursor(key);
@@ -65,15 +77,21 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
         EquipItem(itemName);
     }
 
+    /// <summary>
+    /// 아이템 장착 함수
+    /// </summary>
     public void EquipItem(string itemName)
     {
-        GameObject equip = Managers.Addressable.LoadItem<GameObject>($"Equip_{itemName}");
+        GameObject equip = Managers.Addressable.LoadData<GameObject>($"Equip_{itemName}");
 
         CurEquip = Instantiate(equip, equipParent).GetComponent<Equip>();
 
         CurEquip.Init(itemName, controller, condition);
     }
 
+    /// <summary>
+    /// 아이템 가져오는 함수
+    /// </summary>
     public bool TakeItem(string name, out bool isEquipped)
     {
         return uiInventory.TakeItem(name, out isEquipped);

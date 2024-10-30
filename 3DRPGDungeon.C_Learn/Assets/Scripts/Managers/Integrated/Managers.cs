@@ -33,6 +33,9 @@ public sealed class Managers : MonoBehaviour
         instance.uiManager = CreateManager<UIManager>(go.transform);
     }
 
+    /// <summary>
+    /// Hierarchy창에 Manager만들어주는 함수
+    /// </summary>
     private static T CreateManager<T>(Transform parent) where T : Component, IManager
     {
         GameObject go = new GameObject(typeof(T).Name);

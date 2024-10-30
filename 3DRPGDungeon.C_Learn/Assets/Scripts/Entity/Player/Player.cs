@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IUnitCommander
 {
-    public PlayerController controller;
-    public PlayerCondition condition;
-    public PlayerEquipment equipment;
-    public PlayerInteraction interaction;
+    public PlayerController controller { get; private set; }        //플레이어 컨트롤러
+    public PlayerCondition condition { get; private set; }          //플레이어 상태
+    public PlayerEquipment equipment { get; private set; }          //플레이어 장비
+    public PlayerInteraction interaction { get; private set; }      //플레이어 상호작용
 
     public event Action UpdateEvent;
     public event Action FixedUpdateEvent;
@@ -21,10 +21,10 @@ public class Player : MonoBehaviour, IUnitCommander
         equipment = GetComponent<PlayerEquipment>();
         interaction = GetComponent<PlayerInteraction>();
 
-        controller.OnAwake(this);
-        condition.OnAwake(this);
-        equipment.OnAwake(this);
-        interaction.OnAwake(this);
+        controller.OnInit(this);
+        condition.OnInit(this);
+        equipment.OnInit(this);
+        interaction.OnInit(this);
     }
 
     private void FixedUpdate()
