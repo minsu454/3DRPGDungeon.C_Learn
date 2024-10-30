@@ -1,7 +1,9 @@
 using Common.CoTimer;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
     private Rigidbody myRb;
     private float speed = 5;
     private Vector2 moveDir;
+    [SerializeField] private Transform raycastTr;
 
     [Header("Camera")]
     [SerializeField] private List<Camera> cameraList;
@@ -101,10 +104,26 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapInteractionUnit
     private void Move()
     {
         Vector3 dir = transform.forward * moveDir.y + transform.right * moveDir.x;
-        dir *= (speed * moveDoping);
-        dir.y = myRb.velocity.y;
 
+        float angle = CalculateNextFrameGroundAngle(dir, speed);
+        Debug.Log(angle);
+
+        dir = angle < 30 ? dir * speed * moveDoping : Vector3.zero;
+        dir.y = myRb.velocity.y;
+        
         myRb.velocity = dir;
+    }
+
+    private float CalculateNextFrameGroundAngle(Vector3 dir, float moveSpeed)
+    {
+        var nextFramePlayerPos = transform.position + dir * moveSpeed * Time.fixedDeltaTime;
+
+        Debug.DrawRay(nextFramePlayerPos, dir, Color.red, 1f);
+
+        if (Physics.Raycast(nextFramePlayerPos, Vector3.down, out RaycastHit hit, 1f, groundLayerMask))
+            return Vector3.Angle(Vector3.up, hit.normal);
+
+        return 0f;
     }
 
     private void Jump()
