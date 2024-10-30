@@ -1,6 +1,9 @@
-﻿using System;
+using System;
 using UnityEngine;
 
+/// <summary>
+/// 레이저데이터를 저장하는 class
+/// </summary>
 [Serializable]
 public class LaserData
 {

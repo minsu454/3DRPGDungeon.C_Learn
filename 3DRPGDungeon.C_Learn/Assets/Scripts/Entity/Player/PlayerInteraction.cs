@@ -7,20 +7,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour, IUnitParts
 {
-    [SerializeField] private float checkRate = 0.05f;
-    [SerializeField] private float maxDistance;
-    private Camera firstPersonCamera;
-    private float lastCheckTime;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private float checkRate = 0.05f;       //업데이트 실행 주기
+    private float lastCheckTime;                            //체크 시간 저장 변수 
+    [SerializeField] private float maxDistance;             //감지하는 ray의 최대 거리
+    [SerializeField] private LayerMask layerMask;           //ray로 체크할 레이어들 저장 변수
+    private Camera firstPersonCamera;                       //일인칭 카메라
 
-    private GameObject curInteractGo;
-    private BaseItemSO curItemSO;
+    private GameObject curInteractGo;                       //현재 상호 작용하는 오브젝트 저장 변수
+    private BaseItemSO curItemSO;                           //현재 상호 작용하는 오브젝트 SO 저장 변수
 
-    public TextMeshProUGUI PromptText;
-    public TextMeshProUGUI InteractionPromptText;
-    private PlayerEquipment equipment;
+    public TextMeshProUGUI InfoCommentText;                 //아이템 정보 관련 텍스트 변수
+    public TextMeshProUGUI MapItemInteractionCommentText;           //맵아이템에 상호작용 방법을 알려주는 텍스트 변수
 
-    public void OnAwake(IUnitCommander commander)
+    private PlayerEquipment equipment;                      //플레이어 장비
+
+    public void OnInit(IUnitCommander commander)
     {
         commander.UpdateEvent += OnUpdate;
 
@@ -37,6 +38,14 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
 
         lastCheckTime = Time.time;
 
+        CheckInteraction();
+    }
+
+    /// <summary>
+    /// 상호작용중인 오브젝트 감지 및 설정 함수
+    /// </summary>
+    private void CheckInteraction()
+    {
         Ray ray = firstPersonCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
@@ -45,73 +54,95 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
             if (hit.collider.gameObject == curInteractGo)
                 return;
 
-            SetPromptText(hit.collider.gameObject);
+            SetItemCommentText(hit.collider.gameObject);
         }
         else
         {
             curInteractGo = null;
             curItemSO = null;
-            PromptText.gameObject.SetActive(false);
-            InteractionPromptText.gameObject.SetActive(false);
+            InfoCommentText.gameObject.SetActive(false);
+            MapItemInteractionCommentText.gameObject.SetActive(false);
         }
     }
 
-    private void SetPromptText(GameObject go)
+    /// <summary>
+    /// 아이템 정보 관련 텍스트 설정해주는 함수
+    /// </summary>
+    private void SetItemCommentText(GameObject go)
     {
         curInteractGo = go;
-        BaseItemSO baseItemSO = Managers.Addressable.LoadItem<BaseItemSO>(go.name);
+        BaseItemSO baseItemSO = Managers.Addressable.LoadData<BaseItemSO>(go.name);
 
-        PromptText.text = $"{baseItemSO.displayName}\n{baseItemSO.description}";
+        InfoCommentText.text = $"{baseItemSO.displayName}\n{baseItemSO.description}";
 
         if (baseItemSO.type == ItemType.MapInteraction)
         {
             MapInteractionItemSO tempSO = baseItemSO as MapInteractionItemSO;
-            InteractionPromptText.text = tempSO.needItemDescription;
-            InteractionPromptText.gameObject.SetActive(true);
+            MapItemInteractionCommentText.text = tempSO.needItemDescription;
+            MapItemInteractionCommentText.gameObject.SetActive(true);
         }
 
         curItemSO = baseItemSO;
-        PromptText.gameObject.SetActive(true);
+        InfoCommentText.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// 아이템을 줍기 및 상호작용 키 다운 event
+    /// </summary>
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started && curInteractGo != null)
         {
             if (curItemSO.type == ItemType.MapInteraction)
             {
-                if (!curInteractGo.TryGetComponent<IMapInteraction>(out var mapInteracion))
-                    return;
-
-                if(equipment.CurEquip == null)
-                    return;
-
-                if (mapInteracion.EqualsItem(equipment.CurEquip.itemName))
-                {
-                    mapInteracion.Select();
-                    equipment.UseItem();
-
-                    InteractionPromptText.gameObject.SetActive(false);
-                }
+                TryMapInteractionItem();
             }
             else
             {
-                bool completed = equipment.TakeItem(curInteractGo.name, out bool isEquipped);
-
-                if (!completed)
-                {
-                    Debug.Log("가방이 가득 찼습니다.");
-                    return;
-                }
-
-                if (isEquipped)
-                {
-                    equipment.EquipItem(curInteractGo.name);
-                }
-
-                Destroy(curInteractGo);
-                PromptText.gameObject.SetActive(false);
+                PickupItem();
             }
         }
+    }
+
+    /// <summary>
+    /// 맵아이템 상호 작용에 사용될 아이템인지 검사하고 가능하다면 상호 작용시켜주는 함수
+    /// </summary>
+    public void TryMapInteractionItem()
+    {
+        if (!curInteractGo.TryGetComponent<IMapItemInteraction>(out var mapInteracion))
+            return;
+
+        if (equipment.CurEquip == null)
+            return;
+
+        if (mapInteracion.EqualsItem(equipment.CurEquip.itemName))
+        {
+            mapInteracion.Select();
+            equipment.UseItem();
+
+            MapItemInteractionCommentText.gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// 아이템 줍는 함수
+    /// </summary>
+    public void PickupItem()
+    {
+        bool completed = equipment.TakeItem(curInteractGo.name, out bool isEquipped);
+
+        if (!completed)
+        {
+            Debug.Log("가방이 가득 찼습니다.");
+            return;
+        }
+
+        if (isEquipped)
+        {
+            equipment.EquipItem(curInteractGo.name);
+        }
+
+        Destroy(curInteractGo);
+        InfoCommentText.gameObject.SetActive(false);
     }
 }

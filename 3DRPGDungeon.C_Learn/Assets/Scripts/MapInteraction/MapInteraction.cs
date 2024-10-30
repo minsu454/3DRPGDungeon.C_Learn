@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class MapInteraction : MonoBehaviour
 {
-    [SerializeField] protected MapInteractionItemSO itemSO;
+    [SerializeField] protected MapInteractionItemSO itemSO;     //맵아이템 상호작용 SO
 }

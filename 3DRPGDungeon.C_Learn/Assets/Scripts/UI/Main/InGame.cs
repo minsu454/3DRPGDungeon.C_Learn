@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class InGame : BaseUI
 {
-    [SerializeField] private UICondition health;
-    [SerializeField] private UICondition stamina;
-    [SerializeField] private UIInventory inventory;
-    [SerializeField] private TextMeshProUGUI promptText;
-    [SerializeField] private TextMeshProUGUI InteractionPromptText;
-    [SerializeField] private UIDamageIndictor damageIndictor;
+    [SerializeField] private UICondition health;                            //체력바
+    [SerializeField] private UICondition stamina;                           //기력바
+    [SerializeField] private UIInventory inventory;                         //인벤토리
+    [SerializeField] private TextMeshProUGUI InfoCommentText;               //아이템 설명 Text
+    [SerializeField] private TextMeshProUGUI MapItemInteractionCommentText; //맵아이템 상호작용 설명 Text
+    [SerializeField] private UIDamageIndictor damageIndictor;               //손상 표시기
 
     public override void Init()
     {
@@ -21,8 +21,8 @@ public class InGame : BaseUI
         player.condition.health = health;
         player.condition.stamina = stamina;
         player.equipment.uiInventory = inventory;
-        player.interaction.PromptText = promptText;
-        player.interaction.InteractionPromptText = InteractionPromptText;
+        player.interaction.InfoCommentText = InfoCommentText;
+        player.interaction.MapItemInteractionCommentText = MapItemInteractionCommentText;
         player.condition.TakeDamageEvent += damageIndictor.Flash;
 
         health.Init();
