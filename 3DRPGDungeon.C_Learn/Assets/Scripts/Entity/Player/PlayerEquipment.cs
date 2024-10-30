@@ -44,7 +44,8 @@ public class PlayerEquipment : MonoBehaviour, IUnitParts
     {
         if (context.phase == InputActionPhase.Performed && CurEquip != null)
         {
-            UseItem();
+            if(uiInventory.CurEquipItem.Item.type == ItemType.Consumable)
+                UseItem();
         }
     }
 

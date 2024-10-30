@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour, IUnitParts, IMapItemInteractionUn
         Vector3 dir = transform.forward * moveDir.y + transform.right * moveDir.x;
 
         float angle = CalculateNextFrameGroundAngle(dir, moveSpeed);
-        Debug.Log(angle);
+        //Debug.Log(angle);
 
         dir = angle < 30 ? dir * moveSpeed * moveDoping : Vector3.zero;
         dir.y = myRb.velocity.y;

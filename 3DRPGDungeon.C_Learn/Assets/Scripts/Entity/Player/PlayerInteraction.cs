@@ -17,7 +17,7 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
     private BaseItemSO curItemSO;                           //현재 상호 작용하는 오브젝트 SO 저장 변수
 
     public TextMeshProUGUI InfoCommentText;                 //아이템 정보 관련 텍스트 변수
-    public TextMeshProUGUI MapItemInteractionCommentText;           //맵아이템에 상호작용 방법을 알려주는 텍스트 변수
+    public TextMeshProUGUI MapItemInteractionCommentText;   //맵아이템에 상호작용 방법을 알려주는 텍스트 변수
 
     private PlayerEquipment equipment;                      //플레이어 장비
 
@@ -97,7 +97,7 @@ public class PlayerInteraction : MonoBehaviour, IUnitParts
             {
                 TryMapInteractionItem();
             }
-            else
+            else 
             {
                 PickupItem();
             }
